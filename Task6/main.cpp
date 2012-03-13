@@ -12,10 +12,17 @@ int main()
     try{
      list = new TList();
         TNode * node = new TNode(new TDate(16,6,1991));
-        list->PushFront(node);
+        list->PushBack(node);
         node = new TNode(new TDate(10,6,1991));
-        list->PushFront(node);
+        list->PushBack(node);
+        list->PushBack(new TNode(new TDate(5,6,1991)));
+        list->PushBack(new TNode(new TDate(5,2,1991)));
+        list->PushBack(new TNode(new TDate(4,10,1991)));
+        list->SortByDate();
 
+    cout << list->PopFront()->value->DateToStr() << endl;
+    cout << list->PopFront()->value->DateToStr() << endl;
+    cout << list->PopFront()->value->DateToStr() << endl;
     cout << list->PopFront()->value->DateToStr() << endl;
     cout << list->PopFront()->value->DateToStr() << endl;
 

@@ -20,16 +20,22 @@ TDate::TDate(int d, int m, int y)
 }
 TDate::TDate(TDate &date)
 {
-    cout << "COPY CONSTRUCTOR" << endl;
+    if(&date == NULL)
+    {
+        throw "\nCannot copy NULL date";
+    }
     this->day = date.day;
     this->mounth = date.mounth;
     this->year = date.year;
 }
 char * TDate::DateToStr()
 {
-    char * p = new char[9];
+    char * p = new char[20];
     if(mounth < 10)
-        sprintf(p,"%d-0%d-%d",year,mounth,day);
+        if(day < 10)
+            sprintf(p,"%d-0%d-0%d",year,mounth,day);
+        else
+            sprintf(p,"%d-0%d-%d",year,mounth,day);
     else
         sprintf(p,"%d-%d-%d",year,mounth,day);
     return p;

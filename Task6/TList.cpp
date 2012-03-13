@@ -29,22 +29,33 @@ TNode::TNode(TDate * date)
     prev = NULL;
 }
 //------------------------------------------------------------------
+TNode::TNode(TNode& node)
+{
+    if(&node)
+    {
+        this->value = node.value;
+        this->next = node.next;
+        this->prev = node.prev;
+    }
+    else
+    {
+        throw "\n Cannot call TNode(NULL) - copy constructor";
+    }
+}
+//------------------------------------------------------------------
 TNode::~TNode()
 {
     if(this == NULL)
     {
         throw "\nCannot delete NODE couse it is NULL";
     }
-//    if(! (value)
-//    {
-//        throw "\nCannot delete fields of NODE couse they are NULL";
-//    }
-    delete value;
-    delete next;
-    delete prev;
+
+    delete value; value = NULL;
+    delete next; next = NULL;
+    delete prev; prev = NULL;
 }
 //------------------------------------------------------------------
-TNode & TNode::operator=(TNode& node)
+TNode& TNode::operator=(TNode& node)
 {
     if(this == &node)
         throw "\n Cannot use operation= to itself";
@@ -64,24 +75,42 @@ TList::TList()
 //------------------------------------------------------------------
 TList::TList(TNode * node)
 {
-    head = new TNode;
-
-    head->value = node->value;
-    head->prev = NULL;
-    head->next = NULL;
-
-    tail = head;
-    ++size;
+   try
+   {
+        if( node )
+        {
+            head = new TNode(*node);
+            tail = head;
+            ++size;
+        }
+        else
+        {
+            throw "\nCannot call TList(NULL)";
+        }
+   }
+   catch(std::bad_alloc)
+   {
+       cout << "\nCannot allocate memory for TList(TNode*)"<< endl;
+   }
+   catch(const char* exc)
+   {
+       cout << exc << endl;
+   }
 }
 //------------------------------------------------------------------
-TList::TList(TList & list)
+TList::TList(TList& list)
 {
-    head = new TNode;
-    tail = new TNode;
+    if(&list)
+    {
+        this->head = new TNode(*(list.head));
+        this->tail = new TNode(*(list.tail));
+        this->size = list.size;
+    }
+    else
+    {
+        throw "\nCannot call TList(NULL) - copy constructor";
+    }
 
-    head = list.head;
-    tail = list.tail;
-    size = list.size;
 }
 //------------------------------------------------------------------
 TList::~TList()
@@ -89,7 +118,7 @@ TList::~TList()
     Clear();
 }
 //------------------------------------------------------------------
-bool TList::Empty()
+inline bool TList::Empty()
 {
     return (head == NULL);
 }
@@ -101,40 +130,43 @@ bool TList::CheckThisNull()
 //------------------------------------------------------------------
 
 //------------------------------------------------------------------
-void TList::PushFront(TNode * k)
+void TList::PushBack(TNode * k)
 {
     if(CheckThisNull())
     {
         throw "\nList is NULL cannot PushFront";
     }
     else if(k == NULL)
+    {
         throw "\nArgument of PushFront is NULL";
+    }
 
-    TNode * temp = this->head;
+    TNode * temp = this->tail;
 
     try
     {
         if(Empty())
         {
-            head = new TNode();
-
-            head->value = k->value;
-            head->prev = NULL;
+            head = new TNode(*k);
             tail = head;
-            head->next = tail;
         }
         else
         {
             temp = tail;
-            tail = new TNode(); // make alocator
-            tail->next = NULL;
-            tail->value = k->value;
+            tail = new TNode(*k);
+            temp->next = tail;
             tail->prev = temp;
+
+            if(size == 1)
+            {
+                head->next = tail;
+            }
         }
     }
     catch(bad_alloc)
     {
         cout << "Bad alloc in PUSH";
+//        return 0;
     }
     size++;
 }
@@ -156,7 +188,6 @@ TNode* TList::PopFront()
         temp_return = temp;
 //        delete temp;
         size--;
-
     }
     else
     {
@@ -189,11 +220,12 @@ void TList::Clear()
 {
     if(CheckThisNull())
     {
-        throw "\nList is NULL cannot Clear list";
+        throw "\nList is NULL, cannot Clear list";
     }
-    TNode * temp = head;
+    TNode * temp;
     while(head != NULL)
     {
+        temp = head;
         head = head->next;
         delete temp;
     }
@@ -205,33 +237,41 @@ void TList::Clear()
 void TList::SortByDate()
 {
     TNode * temp = head;
-    TNode * swap1,*swap2,*cu;
-    while(temp->next != NULL)
+    TNode * swap1,*swap2;
+    int s = size;
+    while(s--)
     {
+     temp = head;
+    while(temp != NULL && temp->next != NULL && s)
+    {
+
         swap2 = temp->next;
         if( strcmp(temp->value->DateToStr(),swap2->value->DateToStr()) < 0 )
         {
             if(temp == head)
             {
-                swap2 = temp->next;
+//                swap2 = temp->next;
                 swap2->prev = NULL;
                 temp->next = swap2->next;
                 swap2->next = temp;
+                temp->prev = swap2;
             }
             else
             {
                 swap1 = temp->prev;
-
                 swap1->next = swap2;
                 swap2->prev = swap1;
+
                 temp->next = swap2->next;
                 temp->prev = swap2;
                 swap2->next = temp;
 
             }
         }
-        tail = temp;
+//        tail = temp;
         temp = temp->next;
+
     }
 
+    }
 }

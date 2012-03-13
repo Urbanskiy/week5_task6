@@ -16,6 +16,7 @@ class TNode
 
         TNode();
         TNode(TDate *);
+        TNode(TNode&);
         ~TNode();
         TNode & operator=(TNode&);
 };
@@ -36,7 +37,7 @@ class TList
         TList(TList &);
         ~TList();
 
-        void PushFront(TNode*);
+        void PushBack(TNode*);
         void SortByDate();
         TNode* PopFront();
         TNode * GetHead();
