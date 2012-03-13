@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="TDate.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="85" topLine="0" />
+	</File>
+	<File name="TDate.h" open="1" top="0" tabpos="5">
+		<Cursor position="600" topLine="0" />
+	</File>
+	<File name="TList.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="3588" topLine="128" />
+	</File>
+	<File name="TList.h" open="1" top="0" tabpos="3">
+		<Cursor position="676" topLine="9" />
+	</File>
+	<File name="main.cpp" open="1" top="1" tabpos="2">
+		<Cursor position="371" topLine="0" />
+	</File>
+</CodeBlocks_layout_file>
