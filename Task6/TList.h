@@ -23,13 +23,12 @@ class TNode
 
 class TList
 {
-    private:
+    protected:
 
         size_t size;
         TNode * head;
         TNode * tail;
 
-    protected:
         bool CheckThisNull();
     public:
         TList();
@@ -39,15 +38,23 @@ class TList
 
         void PushBack(TNode*);
         void SortByDate();
-        TNode* PopFront();
+        TDate* PopFront();
         TNode * GetHead();
         TNode * GetTail();
         void Clear();
         bool Empty();
         void PrintNodes();
-//        int alocate()
-//            dealoc
+};
+class TStack : public TList
+{
+//    friend TNode* TList::PopFront();
+   public:
+    TStack():TList(){};
+    TStack(TNode* node):TList(node){};
+    TStack(TStack& stc):TList(stc){};
+    ~TStack() { Clear();}
 
+    void Push(TNode*);
 
 };
 

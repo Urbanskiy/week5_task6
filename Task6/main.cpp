@@ -9,6 +9,8 @@ using namespace std;
 int main()
 {
     TList * list;
+    TStack * stack  = new TStack();
+    TNode * node;
     try{
      list = new TList();
         TNode * node = new TNode(new TDate(16,6,1991,"awdad awd"));
@@ -20,12 +22,16 @@ int main()
         list->PushBack(new TNode(new TDate(4,10,1991,"awdad awd")));
         list->SortByDate();
 
-    node = list->PopFront();
-    cout << node->value->DateToStr() << " " << node->value->GetEvent() <<endl;
-    cout << list->PopFront()->value->DateToStr() << endl;
-    cout << list->PopFront()->value->DateToStr() << endl;
-    cout << list->PopFront()->value->DateToStr() << endl;
-    cout << list->PopFront()->value->DateToStr() << endl;
+        while(!list->Empty())
+        {
+            stack->Push(new TNode(list->PopFront()));
+        }
+        while(!stack->Empty())
+        {
+            node->value = stack->PopFront();
+            cout << node->value->DateToStr() << " : " << node->value->GetEvent() << endl;
+        }
+        stack->PrintNodes();
 
 }catch(const char * exc)
 {

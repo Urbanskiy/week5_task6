@@ -171,7 +171,7 @@ void TList::PushBack(TNode * k)
     size++;
 }
 //------------------------------------------------------------------
-TNode* TList::PopFront()
+TDate* TList::PopFront()
 {
     if(CheckThisNull())
     {
@@ -194,7 +194,7 @@ TNode* TList::PopFront()
         cout << "\nList is empty, cannot POP" << endl;
         return 0;
     }
-    return temp_return;
+    return temp_return->value;
 
 }
 //------------------------------------------------------------------
@@ -312,5 +312,47 @@ void TList::PrintNodes()
             printf("\n   <-%p  %p  %p->   ",curr->prev,curr,curr->next);
             curr = curr->next;
     }
+
+}
+void TStack::Push(TNode * k)
+{
+    if(CheckThisNull())
+    {
+        throw "\nList is NULL cannot PushFront";
+    }
+    else if(k == NULL)
+    {
+        throw "\nArgument of PushFront is NULL";
+    }
+
+    TNode * temp = this->head;
+
+    try
+    {
+        if(Empty())
+        {
+            head = new TNode(*k);
+            tail = head;
+        }
+        else
+        {
+            temp = head;
+            head = new TNode(*k);
+            head->next = temp;
+            temp->prev = head;
+
+            if(size == 1)
+            {
+                head->next = tail;
+            }
+        }
+    }
+    catch(bad_alloc)
+    {
+        cout << "Bad alloc in PUSH";
+//        return 0;
+    }
+    size++;
+
 
 }
