@@ -44,6 +44,7 @@ class TList
         TNode * GetTail();
         void Clear();
         bool Empty();
+        void PrintNodes();
 //        int alocate()
 //            dealoc
 

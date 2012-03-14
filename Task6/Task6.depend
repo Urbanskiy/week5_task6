@@ -1,27 +1,27 @@
 # depslib dependency file v1.0
-1331678437 source:c:\conf\task6\main.cpp
+1331723483 source:c:\conf\task6\main.cpp
 	<iostream>
 	"TList.h"
 	<stdio.h>
 	<string.h>
 	<stdlib.h>
 
-1331679736 source:c:\conf\task6\tlist.cpp
+1331722686 source:c:\conf\task6\tlist.cpp
 	"TList.h"
 
-1331672770 c:\conf\task6\tlist.h
+1331719151 c:\conf\task6\tlist.h
 	"TDate.h"
 	<iostream>
 	<stdio.h>
 	<string.h>
 	<stdlib.h>
 
-1331057608 c:\conf\task6\tdate.h
+1331723891 c:\conf\task6\tdate.h
 	<iostream>
 	<string.h>
 	<stdlib.h>
 	<stdio.h>
 
-1331677725 source:c:\conf\task6\tdate.cpp
+1331723891 source:c:\conf\task6\tdate.cpp
 	"TDate.h"
 

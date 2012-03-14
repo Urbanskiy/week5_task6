@@ -236,42 +236,81 @@ void TList::Clear()
 //------------------------------------------------------------------
 void TList::SortByDate()
 {
-    TNode * temp = head;
-    TNode * swap1,*swap2;
-    int s = size;
-    while(s--)
+    TNode * swap1;
+    TNode * swap2;
+    TNode * curr;
+    TNode * temp;
+    size_t s = this->size;
+    PrintNodes();
+    cout << endl << endl;
+    if(size > 1)
+    while(s)
     {
-     temp = head;
-    while(temp != NULL && temp->next != NULL && s)
-    {
+        curr = head;
+        swap1 = head;
+        swap2 = head->next;
 
-        swap2 = temp->next;
-        if( strcmp(temp->value->DateToStr(),swap2->value->DateToStr()) < 0 )
+        while( curr->next != NULL)
         {
-            if(temp == head)
+            if(strcmp( swap1->value->DateToStr(),swap2->value->DateToStr()) < 0)
             {
-//                swap2 = temp->next;
-                swap2->prev = NULL;
-                temp->next = swap2->next;
-                swap2->next = temp;
-                temp->prev = swap2;
-            }
-            else
-            {
-                swap1 = temp->prev;
-                swap1->next = swap2;
-                swap2->prev = swap1;
+                if(swap1 == head)
+                {
+                    swap1->next = swap2->next;
+                    swap2->next->prev = swap1;
+                    swap2->next = swap1;
 
-                temp->next = swap2->next;
-                temp->prev = swap2;
-                swap2->next = temp;
+                    swap2->prev = swap1->prev;
+                    swap1->prev = swap2;
+                    head = swap2;
+                }
+                else if(swap2 == tail)
+                {
+                    swap1->next = swap2->next;
+                    swap2->next = swap1;
+                    swap1->prev->next = swap2;
 
+                    swap2->prev = swap1->prev;
+                    swap1->prev = swap2;
+                    tail = swap1;
+                }
+                else
+                {
+                    swap1->next = swap2->next;
+                    swap2->next->prev = swap1;
+                    swap2->next = swap1;
+                    swap1->prev->next = swap2;
+
+                    swap2->prev = swap1->prev;
+                    swap1->prev = swap2;
+
+                }
+
+                temp = swap1;
+                swap1 = swap2;
+                swap2 = temp;
+//                curr = curr->prev;
             }
+            if(curr == tail)
+                break;
+            //----------------
+            curr = curr->next;
+            swap1 = swap1->next;
+            swap2 = swap2->next;
         }
-//        tail = temp;
-        temp = temp->next;
-
+        PrintNodes();
+        cout << s;
+        cout << endl;
+        s--;
+    }
+}
+void TList::PrintNodes()
+{
+    TNode * curr = head;
+    while(curr)
+    {
+            printf("\n   <-%p  %p  %p->   ",curr->prev,curr,curr->next);
+            curr = curr->next;
     }
 
-    }
 }

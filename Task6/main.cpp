@@ -11,16 +11,17 @@ int main()
     TList * list;
     try{
      list = new TList();
-        TNode * node = new TNode(new TDate(16,6,1991));
+        TNode * node = new TNode(new TDate(16,6,1991,"awdad awd"));
         list->PushBack(node);
-        node = new TNode(new TDate(10,6,1991));
+        node = new TNode(new TDate(10,6,1991,"awdad awd"));
         list->PushBack(node);
-        list->PushBack(new TNode(new TDate(5,6,1991)));
-        list->PushBack(new TNode(new TDate(5,2,1991)));
-        list->PushBack(new TNode(new TDate(4,10,1991)));
+        list->PushBack(new TNode(new TDate(5,6,1991,"awdad awd")));
+        list->PushBack(new TNode(new TDate(5,2,1991,"awdad awd")));
+        list->PushBack(new TNode(new TDate(4,10,1991,"awdad awd")));
         list->SortByDate();
 
-    cout << list->PopFront()->value->DateToStr() << endl;
+    node = list->PopFront();
+    cout << node->value->DateToStr() << " " << node->value->GetEvent() <<endl;
     cout << list->PopFront()->value->DateToStr() << endl;
     cout << list->PopFront()->value->DateToStr() << endl;
     cout << list->PopFront()->value->DateToStr() << endl;
